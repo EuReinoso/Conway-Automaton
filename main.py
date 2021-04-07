@@ -6,6 +6,7 @@ pygame.init()
 
 BLACK = (0, 0, 0)
 WHITE = (200, 200, 200)
+YELLOW = (200, 200, 0)
 
 WINDOW_SIZE = (640, 480)
 TILE_SIZE = 15
@@ -21,14 +22,17 @@ def gen_rects():
         y = 0
         for j in range(0, screen.get_size()[1], TILE_SIZE):
             rect = pygame.Rect(i, j, TILE_SIZE, TILE_SIZE)
-            grid_list[x,y] = Individual(rect)
+            grid_list[x, y] = Individual(rect)
             y += 1
         x += 1
 
 def draw_grid():
     for line in grid_list:
         for idv in line:
-            pygame.draw.rect(screen, WHITE, idv.square.rect,1)
+            if idv.alive:
+                pygame.draw.rect(screen, YELLOW, idv.rect)
+            else:
+                pygame.draw.rect(screen, WHITE, idv.rect, 1)
 
 window = pygame.display.set_mode(WINDOW_SIZE)
 pygame.display.set_caption('Conways Game')
