@@ -34,10 +34,36 @@ def draw_grid():
             else:
                 pygame.draw.rect(screen, WHITE, idv.rect, 1)
 
+def gen_adjacents():
+    x = 0
+    for line in grid_list:
+        y = 0
+        for idv in line:
+            if x > 0:
+                idv.adjacents.append(grid_list[x - 1][y])
+            if x < len(grid_list) - 1:
+                idv.adjacents.append(grid_list[x + 1][y])
+            if y > 0:
+                idv.adjacents.append(grid_list[x][y - 1])
+            if y < len(line) - 1:
+                idv.adjacents.append(grid_list[x][y + 1])
+
+            if x > 0 and y > 0:
+                idv.adjacents.append(grid_list[x - 1][y - 1])
+            if x < len(grid_list) - 1 and y < len(line) - 1:
+                idv.adjacents.append(grid_list[x + 1][y + 1])
+            if x > 0 and y < len(line) - 1:
+                idv.adjacents.append(grid_list[x - 1][y + 1])
+            if x < len(grid_list) - 1 and y > 0:
+                idv.adjacents.append(grid_list[x + 1][y - 1])
+            y += 1
+        x += 1
+
 window = pygame.display.set_mode(WINDOW_SIZE)
 pygame.display.set_caption('Conways Game')
 
 gen_rects()
+gen_adjacents()
 while True:
 
     screen.fill(BLACK)
