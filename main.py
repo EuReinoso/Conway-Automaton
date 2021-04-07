@@ -6,7 +6,7 @@ BLACK = (0, 0, 0)
 WHITE = (200, 200, 200)
 
 WINDOW_SIZE = (640, 480)
-TILE_SIZE = 10
+TILE_SIZE = 15
 
 screen = pygame.Surface(WINDOW_SIZE)
 
@@ -23,6 +23,11 @@ def gen_rects():
             y += 1
         x += 1
 
+def draw_grid():
+    for line in grid_list:
+        for sqr in line:
+            pygame.draw.rect(screen, WHITE, sqr,1)
+
 window = pygame.display.set_mode(WINDOW_SIZE)
 pygame.display.set_caption('Conways Game')
 
@@ -36,6 +41,6 @@ while True:
             pygame.quit()
             sys.exit()
     
-    
+    draw_grid()
     window.blit(screen,(0, 0))
     pygame.display.update()
