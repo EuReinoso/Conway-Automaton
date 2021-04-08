@@ -59,11 +59,19 @@ def gen_adjacents():
             y += 1
         x += 1
 
+def grid_is_alive():
+    for line in grid_list:
+        for idv in line:
+            idv.is_alive()
+
 window = pygame.display.set_mode(WINDOW_SIZE)
 pygame.display.set_caption('Conways Game')
 
+
+
 gen_rects()
 gen_adjacents()
+
 while True:
 
     screen.fill(BLACK)
@@ -72,7 +80,9 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-    
+
+    grid_is_alive()
+
     draw_grid()
     window.blit(screen,(0, 0))
     pygame.display.update()
