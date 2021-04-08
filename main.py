@@ -16,6 +16,9 @@ screen = pygame.Surface(WINDOW_SIZE)
 grid_list = empty(shape=[round(WINDOW_SIZE[0]/TILE_SIZE), round(WINDOW_SIZE[1]/TILE_SIZE)], 
                         dtype= object)
 
+fps = 10
+time = pygame.time.Clock()
+
 def gen_rects():
     x = 0
     for i in range(0,screen.get_size()[0],TILE_SIZE):
@@ -86,3 +89,4 @@ while True:
     draw_grid()
     window.blit(screen,(0, 0))
     pygame.display.update()
+    time.tick(fps)
