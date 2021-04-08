@@ -5,10 +5,7 @@ class Individual:
         self.adjacents = []
 
     def is_alive(self):
-        count = 0
-        for adj in self.adjacents:
-            if adj.alive:
-                count += 1
+        count = self.count_alive_adjacents()
         
         if self.alive:
             if count < 2:
@@ -22,4 +19,10 @@ class Individual:
                 return True
             else:
                 return False
-            
+    
+    def count_alive_adjacents():
+        count = 0
+        for adj in self.adjacents:
+            if adj.alive:
+                count += 1
+        return count
