@@ -9,7 +9,7 @@ WHITE = (200, 200, 200)
 YELLOW = (200, 200, 0)
 
 WINDOW_SIZE = (640, 480)
-TILE_SIZE = 20
+TILE_SIZE = 4
 
 screen = pygame.Surface(WINDOW_SIZE)
 
@@ -54,6 +54,7 @@ def draw_grid():
         for idv in line:
             if idv.alive:
                 pygame.draw.rect(screen, YELLOW, idv.rect)
+                
             # else:
             #     pygame.draw.rect(screen, WHITE, idv.rect, 1)
 
@@ -83,9 +84,26 @@ def gen_adjacents():
         x += 1
 
 def grid_is_alive():
+    global grid_list
+    array = []
+    i = 0
     for line in grid_list:
+        j = 0
         for idv in line:
-            idv.is_alive()
+            array.append(grid_list[i][j].is_alive()) 
+            j+=1
+        i+=1
+
+    x = 0
+    i = 0
+    for line in grid_list:
+        j = 0
+        for idv in line:
+            grid_list[i][j].alive = array[x]
+            j+=1
+            x+=1
+        i+=1
+    
 
 window = pygame.display.set_mode(WINDOW_SIZE)
 pygame.display.set_caption('Conways Game')
@@ -115,8 +133,6 @@ while True:
                 click(pygame.mouse.get_pos(),True)
             if pygame.mouse.get_pressed(3)[2]:
                 click(pygame.mouse.get_pos(),False)
-        
-
         
     if start:
         grid_is_alive()
