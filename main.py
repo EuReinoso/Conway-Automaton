@@ -9,15 +9,27 @@ WHITE = (200, 200, 200)
 YELLOW = (200, 200, 0)
 
 WINDOW_SIZE = (640, 480)
-TILE_SIZE = 15
+TILE_SIZE = 10
 
 screen = pygame.Surface(WINDOW_SIZE)
 
 grid_list = empty(shape=[round(WINDOW_SIZE[0]/TILE_SIZE), round(WINDOW_SIZE[1]/TILE_SIZE)], 
                         dtype= object)
 
-fps = 10
+fps = 2
 time = pygame.time.Clock()
+
+w = WINDOW_SIZE[0]//len(grid_list)
+h = WINDOW_SIZE[1]//len(grid_list[0])
+
+
+
+def click(pos,state):
+    i = pos[1]//w
+    j = pos[0]//h
+
+    grid_list[j][i].alive = True
+
 
 def gen_rects():
     x = 0
@@ -70,8 +82,6 @@ def grid_is_alive():
 window = pygame.display.set_mode(WINDOW_SIZE)
 pygame.display.set_caption('Conways Game')
 
-
-
 gen_rects()
 gen_adjacents()
 
@@ -83,7 +93,21 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        if event.type == pygame.MOUSEBUTTONUP:
+            if pygame.mouse.get_pressed(3)[0]:
+                click(pygame.mouse.get_pos(),True)
+            if pygame.mouse.get_pressed(3)[2]:
+                click(pygame.mouse.get_pos(),False)
 
+        if event.type == pygame.MOUSEMOTION:
+            if pygame.mouse.get_pressed(3)[0]:
+                click(pygame.mouse.get_pos(),True)
+            if pygame.mouse.get_pressed(3)[2]:
+                click(pygame.mouse.get_pos(),False)
+        
+
+        
+    
     grid_is_alive()
 
     draw_grid()
