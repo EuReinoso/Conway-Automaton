@@ -9,14 +9,14 @@ WHITE = (200, 200, 200)
 YELLOW = (200, 200, 0)
 
 WINDOW_SIZE = (640, 480)
-TILE_SIZE = 4
+TILE_SIZE = 8
 
 screen = pygame.Surface(WINDOW_SIZE)
 
 grid_list = empty(shape=[round(WINDOW_SIZE[0]/TILE_SIZE), round(WINDOW_SIZE[1]/TILE_SIZE)], 
                         dtype= object)
 
-fps = 30
+fps = 60
 time = pygame.time.Clock()
 
 w = WINDOW_SIZE[0]//len(grid_list)
@@ -33,7 +33,7 @@ def click(pos,state):
 def pause():
     global start,fps
     if start:
-        fps = 30
+        fps = 60
         start = False
     else:
         fps = 10
@@ -54,6 +54,7 @@ def draw_grid():
         for idv in line:
             if idv.alive:
                 pygame.draw.rect(screen, YELLOW, idv.rect)
+
                 
             # else:
             #     pygame.draw.rect(screen, WHITE, idv.rect, 1)
@@ -103,6 +104,15 @@ def grid_is_alive():
             j+=1
             x+=1
         i+=1
+
+def clean():
+    i = 0
+    for line in grid_list:
+        j = 0
+        for idv in line:
+            grid_list[i][j].alive = False
+            j+=1
+        i+=1
     
 
 window = pygame.display.set_mode(WINDOW_SIZE)
@@ -120,8 +130,10 @@ while True:
             pygame.quit()
             sys.exit()
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RETURN:    
+            if event.key == pygame.K_SPACE:    
                 pause()
+            if event.key == pygame.K_c:
+                clean()
         if event.type == pygame.MOUSEBUTTONUP:
             if pygame.mouse.get_pressed(3)[0]:
                 click(pygame.mouse.get_pos(),True)
