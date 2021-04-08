@@ -20,7 +20,7 @@ class Individual:
             else:
                 return False
     
-    def count_alive_adjacents():
+    def count_alive_adjacents(self):
         count = 0
         for adj in self.adjacents:
             if adj.alive:
