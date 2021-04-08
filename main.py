@@ -9,27 +9,35 @@ WHITE = (200, 200, 200)
 YELLOW = (200, 200, 0)
 
 WINDOW_SIZE = (640, 480)
-TILE_SIZE = 10
+TILE_SIZE = 20
 
 screen = pygame.Surface(WINDOW_SIZE)
 
 grid_list = empty(shape=[round(WINDOW_SIZE[0]/TILE_SIZE), round(WINDOW_SIZE[1]/TILE_SIZE)], 
                         dtype= object)
 
-fps = 2
+fps = 30
 time = pygame.time.Clock()
 
 w = WINDOW_SIZE[0]//len(grid_list)
 h = WINDOW_SIZE[1]//len(grid_list[0])
 
-
+start = False
 
 def click(pos,state):
     i = pos[1]//w
     j = pos[0]//h
 
-    grid_list[j][i].alive = True
+    grid_list[j][i].alive = state
 
+def pause():
+    global start,fps
+    if start:
+        fps = 30
+        start = False
+    else:
+        fps = 10
+        start = True
 
 def gen_rects():
     x = 0
@@ -46,8 +54,8 @@ def draw_grid():
         for idv in line:
             if idv.alive:
                 pygame.draw.rect(screen, YELLOW, idv.rect)
-            else:
-                pygame.draw.rect(screen, WHITE, idv.rect, 1)
+            # else:
+            #     pygame.draw.rect(screen, WHITE, idv.rect, 1)
 
 def gen_adjacents():
     x = 0
@@ -93,6 +101,9 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RETURN:    
+                pause()
         if event.type == pygame.MOUSEBUTTONUP:
             if pygame.mouse.get_pressed(3)[0]:
                 click(pygame.mouse.get_pos(),True)
@@ -107,8 +118,8 @@ while True:
         
 
         
-    
-    grid_is_alive()
+    if start:
+        grid_is_alive()
 
     draw_grid()
     window.blit(screen,(0, 0))
