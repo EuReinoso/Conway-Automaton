@@ -23,7 +23,7 @@ The game of life is an idea of an automaton created by John Conway. It consists 
 
 ## How to use
 
-### libraries
+### Libraries
 If you dont have the libraries 'pygame' and 'numpy', you can install using pip on terminal:
 
 - pygame
@@ -34,4 +34,15 @@ If you dont have the libraries 'pygame' and 'numpy', you can install using pip o
 
         pip install numpy
 
+### Commands
 
+ To draw the initial population click with the left mouse button and drag.
+
+<img src= "https://github.com/EuReinoso/Conway-Automaton/blob/master/assets/draw.gif" width = "360" height = "240" />
+
+To turn on/of the grid press 'g'.
+
+<img src= "https://github.com/EuReinoso/Conway-Automaton/blob/master/assets/grid.gif" width = "360" height = "240" />
+
+
+To start press Space.
